@@ -13,7 +13,7 @@ public class KafkaMessagePublisher {
     @Autowired
     private KafkaTemplate<String,Object>template;
 
-    public void sendMessageToTopic(String message)
+    public String sendMessageToTopic(String message)
     {
         CompletableFuture<SendResult<String, Object>> future = template.send("java", message);
         future.whenComplete((result,ex)->{
@@ -25,6 +25,7 @@ public class KafkaMessagePublisher {
                 System.out.println("unable to send message"+ ex.getMessage());
             }
         });
+        return "successfully published";
     }
 
 }
